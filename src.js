@@ -8,6 +8,9 @@ const imgHeightInput = document.querySelector("#imgHeightInput");
 const aspectRatioSlider = document.querySelector("#range");
 const qualitySlider = document.querySelector("#quality");
 
+const aspectRatioLabel = document.querySelector("#range_txt");
+const qualityLabel = document.querySelector("#quality_txt");
+
 const imageType = document.querySelector("#imageType");
 const downloadBtn = document.querySelector("#downloadBtn");
 const downloadLink = document.querySelector("#downloadLink");
@@ -29,6 +32,9 @@ const imageIsGrayscale = () => {
 
 let image, imageRatio, imageName;
 let imageAngle = 0;
+
+// TODO: Set image output type to input type
+// Auto scale images to 50% if very large
 
 function imageSelector() {
     let fileInput = document.createElement("input");
@@ -212,7 +218,7 @@ function imageToPDF(mode) {
         console.log(pdfSize);
         return pdfSize;
     } else {
-        doc.save();
+        doc.save(imageName);
     }
 }
 
@@ -250,7 +256,7 @@ imgHeightInput.addEventListener("change", () => {
 // Resolution slider - Update value label
 aspectRatioSlider.addEventListener("input", () => {
     let ratio = ((aspectRatioSlider.value / image.width) * 100).toFixed(1);
-    document.querySelector("#range_txt").innerHTML = ratio + " %";
+    aspectRatioLabel.innerHTML = ratio + " %";
 });
 
 // Resize image
@@ -261,12 +267,16 @@ aspectRatioSlider.addEventListener("change", () => {
 
 // Quality slider
 qualitySlider.addEventListener("input", () => {
-    document.querySelector("#quality_txt").innerHTML = qualitySlider.value;
+    qualityLabel.innerHTML = qualitySlider.value;
     updateImageInfo();
 });
 
 // Image Type
 imageType.addEventListener("change", () => {
+    if (!(imageType.value == "png")) {
+        qualitySlider.value = 0.9;
+        qualityLabel.innerHTML = "0.9";
+    }
     updateImageInfo();
 });
 

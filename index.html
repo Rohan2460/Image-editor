@@ -6,79 +6,80 @@
         <title>Document</title>
     </head>
     <body>
-        <style></style>
-        <div>
-            <button onclick="imageSelector()">Select Image</button>
+        <div style="display: flex; flex-direction: column">
+            <!-- Tools div -->
+            <div style="align-self: center">
+                <!-- TOP -->
+                <div>
+                    <button onclick="imageSelector()">Select Image</button>
+                    <button id="downloadBtn" onclick="exportImage()">Download</button>
+                    <a href="" download="" id="downloadLink" style="display: none"></a>
+                    <!-- TODO make this buttons -->
+                    <select name="" id="imageType">
+                        <option value="png">PNG</option>
+                        <option value="jpeg">JPG / JPEG</option>
+                        <option value="webp">WEBP</option>
+                        <option value="pdf">PDF</option>
+                    </select>
+                </div>
+                <hr />
+                <!-- Uploaded Image Details -->
+                <div>
+                    <p>Image name: <span id="imgName"></span></p>
+                    <p>Image size: <span id="imgSize"></span></p>
+                </div>
+                <hr />
+                <!-- Resize part | width and height inputs -->
+                <div style="display: grid; grid-template-columns: auto auto; gap: 10px">
+                    <label id="height_label" for="">Height</label>
+                    <label id="width_label" for="">Width</label>
+                    <input type="number" id="imgHeightInput" />
+                    <input type="number" id="imgWidthInput" />
+                    <!-- Maybe remove this button -->
+                    <!-- <button onclick="resizeBtnHandler()">Resize</button> -->
+                </div>
 
-            <button id="downloadBtn" onclick="exportImage()">Download</button>
-            <a href="" download="" id="downloadLink" style="display: none"></a>
-
-            <select name="" id="imageType">
-                <option value="png">PNG</option>
-                <option value="jpeg">JPG / JPEG</option>
-                <option value="webp">WEBP</option>
-                <option value="pdf">PDF</option>
-            </select>
-
-            <hr />
-
-            <!-- Uploaded Image Details -->
-            <div>
-                <p>Image name: <span id="imgName"></span></p>
-                <p>Image size: <span id="imgSize"></span></p>
-            </div>
-
-            <p id="p_elem"><span id="span_elem"></span></p>
-
-            <div>
-                <label>Resize Image</label>
                 <br />
 
-                <label id="height_label" for="">Height</label>
-                <input type="number" id="imgHeightInput" />
-                <br />
-                <label id="width_label" for="">Width</label>
-                <input type="number" id="imgWidthInput" />
-                <br />
-                <button onclick="resizeBtnHandler()">Resize</button>
-            </div>
+                <!-- Sliders -->
+                <div style="display: grid; grid-template-columns: auto auto auto; gap: 10px">
+                    <!-- Scale image / aspect ratio -->
+                    <label for="">Scale image</label>
+                    <input type="range" id="range" min="0" step="1" max="10" value="0" />
+                    <label for="" id="range_txt">100 %</label>
 
-            <!-- Test -->
-            <div>
-                <!-- Resolution / aspect ratio -->
+                    <!-- Quality slider -->
+                    <label for="">Quality</label>
+                    <input type="range" id="quality" min="0.1" step="0.1" max="1" value="1" />
+                    <label for="" id="quality_txt">1</label>
+                </div>
 
-                <label for="">Scale image</label>
-                <input type="range" id="range" min="0" step="1" max="10" value="0" />
-                <label for="" id="range_txt"></label>
-                <br />
-                <input type="checkbox" id="lockAspectRatio" />
-                <label for="">Lock Aspect Ratio</label>
                 <br />
 
-                <button onclick="rotateImage('left')">Rotate left</button>
-                <button onclick="rotateImage('right')">Rotate right</button>
-
+                <!-- Lock aspect ratio | Grayscale -->
+                <div style="display: grid; grid-template-columns: auto auto; gap: 10px">
+                    <div>
+                        <input type="checkbox" id="lockAspectRatio" />
+                        <label for="">Lock Aspect Ratio</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="grayscale" />
+                        <label for="">Black and White</label>
+                    </div>
+                    <!-- Rotation -->
+                    <button onclick="rotateImage('left')">Rotate left</button>
+                    <button onclick="rotateImage('right')">Rotate right</button>
+                </div>
                 <!-- Handle no image selected error -->
-
-                <!-- Quality slider -->
-                <label for="">Quality</label>
-                <input type="range" id="quality" min="0.1" step="0.1" max="1" value="0.9" />
-                <label for="" id="quality_txt"></label>
-                <br />
-                <input type="checkbox" id="grayscale" />
-                <label for="">Grayscale</label>
             </div>
 
-            <div id="testdiv"></div>
-            <br />
-
-            <br />
             <div
                 id="imageContainer"
                 style="
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    align-self: center;
                     border: 2px solid #ccc;
                     padding: 10px;
                     background-color: #fff;

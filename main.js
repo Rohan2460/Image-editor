@@ -1,4 +1,5 @@
-const jsPDF = window.jspdf;
+import { jsPDF } from "jspdf";
+
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 // Inputs
@@ -11,8 +12,10 @@ const qualitySlider = document.querySelector("#quality");
 const aspectRatioLabel = document.querySelector("#range_txt");
 const qualityLabel = document.querySelector("#quality_txt");
 
-const imageType = document.querySelector("#imageType");
 const downloadBtn = document.querySelector("#downloadBtn");
+const imageSelectBtn = document.querySelector("#imgSelectBtn");
+
+const imageType = document.querySelector("#imageType");
 const downloadLink = document.querySelector("#downloadLink");
 const imageContainer = document.querySelector("#imageContainer");
 
@@ -206,7 +209,7 @@ function imageToBlob() {
 
 function imageToPDF(mode) {
     const img_orientation = image.width > image.height ? "landscape" : "portrait";
-    const doc = new jspdf.jsPDF({
+    const doc = new jsPDF({
         orientation: img_orientation,
         unit: "px",
         format: [imgWidthInput.value, imgHeightInput.value],
@@ -241,6 +244,17 @@ function exportImage() {
     resizeBtnHandler(); // Hack for some unknown rotation issue
 }
 
+// Event handlers
+
+// Main Buttons
+downloadBtn.addEventListener("click", () => {
+    exportImage();
+});
+
+imageSelectBtn.addEventListener("click", () => {
+    imageSelector();
+});
+
 // Image dimensions input - manage aspect ratio
 imgWidthInput.addEventListener("change", () => {
     imgHeightInput.value = lockAspectRatio() ? Math.floor(imgWidthInput.value / imageRatio) : imgHeightInput.value;
@@ -273,14 +287,14 @@ qualitySlider.addEventListener("input", () => {
 
 // Image Type
 imageType.addEventListener("change", () => {
-    if (!(imageType.value == "png")) {
+    if (imageType.value != "png") {
         qualitySlider.value = 0.9;
         qualityLabel.innerHTML = "0.9";
     }
     updateImageInfo();
 });
 
-// BW
+// Grayscale
 grayscaleBtn.addEventListener("click", () => {
     console.log("BW ", imageIsGrayscale());
     if (imageIsGrayscale()) {

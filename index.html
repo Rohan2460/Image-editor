@@ -11,8 +11,8 @@
             <div style="align-self: center">
                 <!-- TOP -->
                 <div>
-                    <button onclick="imageSelector()">Select Image</button>
-                    <button id="downloadBtn" onclick="exportImage()">Download</button>
+                    <button id="imgSelectBtn">Select Image</button>
+                    <button id="downloadBtn">Download</button>
                     <a href="" download="" id="downloadLink" style="display: none"></a>
                     <!-- TODO make this buttons -->
                     <select name="" id="imageType">
@@ -93,6 +93,6 @@
             </div>
         </div>
     </body>
-    <script src="src.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script type="module" src="main.js"></script>
 </html>

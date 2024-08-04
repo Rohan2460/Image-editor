@@ -198,9 +198,13 @@ function applyFilters() {
 
 // Image Conversions
 
-function imageToBlob() {
+function imageToBlob(type) {
+    console.log(parseFloat(qualitySlider.value), imageType.value, type);
+
+    if (type == "pdf") {
+        return canvas.toDataURL("image/jpeg", parseFloat(qualitySlider.value));
+    }
     const blob = new Promise((resolve) => {
-        console.log(parseFloat(qualitySlider.value), imageType.value);
         canvas.toBlob(resolve, "image/" + imageType.value, parseFloat(qualitySlider.value));
     });
 
@@ -214,7 +218,7 @@ function imageToPDF(mode) {
         unit: "px",
         format: [imgWidthInput.value, imgHeightInput.value],
     });
-    doc.addImage(canvas, "JPEG", 0, 0, imgWidthInput.value, imgHeightInput.value);
+    doc.addImage(imageToBlob("pdf"), "JPEG", 0, 0, imgWidthInput.value, imgHeightInput.value);
 
     if (mode == "info") {
         let pdfSize = doc.output("blob").size;

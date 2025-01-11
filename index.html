@@ -4,16 +4,81 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
+        <script type="module" src="./main.js"></script>
+        <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <div style="display: flex; flex-direction: column">
+        <div class="container">
             <!-- Tools div -->
-            <div style="align-self: center">
+            <div class="tools-container">
                 <!-- TOP -->
-                <div>
-                    <button id="imgSelectBtn">Select Image</button>
-                    <button id="downloadBtn">Download</button>
-                    <a href="" download="" id="downloadLink" style="display: none"></a>
+                <div class="imgSelectDiv">
+                    <div>
+                        <button id="imgSelectBtn">Select Image</button>
+                        <a href="" download="" id="downloadLink" style="display: none"></a>
+                    </div>
+                    <!-- Uploaded Image Details -->
+                    <div class="ImageInfo">
+                        <span style="display: none">Name: <span id="imgName"></span></span>
+                        <span>Size: <span id="imgSize"></span></span>
+                    </div>
+                </div>
+
+                <hr />
+
+                <!-- Resize part | width and height inputs -->
+                <label id="height_label" style="flex-grow: 1">Dimensions (px)</label>
+                <div class="dimensionInfo">
+                    <div class="dimensionInput1">
+                        <input placeholder="Height" type="text" id="imgHeightInput" />
+                    </div>
+                    <span>X</span>
+                    <div class="dimensionInput2">
+                        <input placeholder="Width" type="text" id="imgWidthInput" />
+                    </div>
+                    <!-- Maybe remove this button -->
+                    <!-- <button onclick="resizeBtnHandler()">Resize</button> -->
+                </div>
+
+                <!-- Sliders -->
+                <div class="Sliders">
+                    <div class="ScaleSlider">
+                        <!-- Scale image / aspect ratio -->
+                        <label for="">Size</label>
+                        <input type="range" id="range" min="0" step="1" max="10" value="0" />
+                        <label for="" id="range_txt">100 %</label>
+                    </div>
+                    <div class="QualitySlider">
+                        <!-- Quality slider -->
+                        <label for="">Quality</label>
+                        <input type="range" id="quality" min="0.1" step="0.1" max="1" value="1" />
+                        <label for="" id="quality_txt">1</label>
+                    </div>
+                </div>
+
+                <!-- Lock aspect ratio | Grayscale -->
+                <div class="OptionsDiv">
+                    <!-- Rotation -->
+                    <div class="RotateButtonsDiv">
+                        <button id="btnRotateLeft">Rotate Left</button>
+                        <button id="btnRotateRight">Rotate Right</button>
+                    </div>
+
+                    <div class="OptionsButtonsDiv">
+                        <div>
+                            <input type="checkbox" id="lockAspectRatio" />
+                            <label for="lockAspectRatio">Lock Aspect Ratio</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="grayscale" />
+                            <label for="grayscale">Black and White</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Handle no image selected error -->
+
+                <div class="exportImage">
                     <!-- TODO make this buttons -->
                     <select name="" id="imageType">
                         <option value="png">PNG</option>
@@ -21,78 +86,14 @@
                         <option value="webp">WEBP</option>
                         <option value="pdf">PDF</option>
                     </select>
-                </div>
-                <hr />
-                <!-- Uploaded Image Details -->
-                <div>
-                    <p>Image name: <span id="imgName"></span></p>
-                    <p>Image size: <span id="imgSize"></span></p>
-                </div>
-                <hr />
-                <!-- Resize part | width and height inputs -->
-                <div style="display: grid; grid-template-columns: auto auto; gap: 10px">
-                    <label id="height_label" for="">Height</label>
-                    <label id="width_label" for="">Width</label>
-                    <input type="number" id="imgHeightInput" />
-                    <input type="number" id="imgWidthInput" />
-                    <!-- Maybe remove this button -->
-                    <!-- <button onclick="resizeBtnHandler()">Resize</button> -->
-                </div>
 
-                <br />
-
-                <!-- Sliders -->
-                <div style="display: grid; grid-template-columns: auto auto auto; gap: 10px">
-                    <!-- Scale image / aspect ratio -->
-                    <label for="">Scale image</label>
-                    <input type="range" id="range" min="0" step="1" max="10" value="0" />
-                    <label for="" id="range_txt">100 %</label>
-
-                    <!-- Quality slider -->
-                    <label for="">Quality</label>
-                    <input type="range" id="quality" min="0.1" step="0.1" max="1" value="1" />
-                    <label for="" id="quality_txt">1</label>
+                    <button id="downloadBtn">Download Image</button>
                 </div>
-
-                <br />
-
-                <!-- Lock aspect ratio | Grayscale -->
-                <div style="display: grid; grid-template-columns: auto auto; gap: 10px">
-                    <div>
-                        <input type="checkbox" id="lockAspectRatio" />
-                        <label for="">Lock Aspect Ratio</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="grayscale" />
-                        <label for="">Black and White</label>
-                    </div>
-                    <!-- Rotation -->
-                    <button onclick="rotateImage('left')">Rotate left</button>
-                    <button onclick="rotateImage('right')">Rotate right</button>
-                </div>
-                <!-- Handle no image selected error -->
             </div>
 
-            <div
-                id="imageContainer"
-                style="
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    align-self: center;
-                    border: 2px solid #ccc;
-                    padding: 10px;
-                    background-color: #fff;
-                    overflow: hidden;
-                    position: relative;
-                    width: 95%;
-                    margin: 10px;
-                    max-height: 500px;
-                ">
-                <canvas id="canvas" width="800" height="500" style="border: 1px solid #000000"> </canvas>
+            <div id="imageContainer" class="imageContainer">
+                <canvas id="canvas" width="800" height="500"> </canvas>
             </div>
         </div>
     </body>
-
-    <script type="module" src="main.js"></script>
 </html>

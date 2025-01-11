@@ -1,0 +1,100 @@
+body {
+    font-family: "Poppins", "Verdana";
+    background-color: #c0c0c0;
+}
+
+button,
+select,
+input {
+    font-family: "Roboto", "Verdana", "Poppins";
+    font-size: 15px;
+    border-radius: 0%;
+    border: 2px;
+    border-style: outset;
+    background-color: white;
+    box-shadow: 4px 3px rgb(116, 116, 116);
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+    box-shadow: none;
+}
+
+input[type="text"] {
+    width: 100px;
+}
+
+#imgSelectButton {
+    margin-right: 16px;
+}
+.ImageInfo {
+    display: flex;
+    gap: 16px;
+    padding-left: 10px;
+}
+
+.imgSelectDiv {
+    width: 100%;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.dimensionInfo {
+    width: 100%;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.Sliders {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.ScaleSlider,
+.QualitySlider {
+    /* width: 100%; */
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-right: 16px;
+}
+
+.OptionsDiv {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+    align-items: center;
+}
+
+.OptionsButtonsDiv,
+.RotateButtonsDiv {
+    display: flex;
+    gap: 8px;
+    margin-right: 8px;
+}
+
+.exportImage {
+    display: flex;
+    gap: 8px;
+}
+
+.imageContainer {
+    height: fit-content;
+    width: fit-content;
+    margin: 8px;
+    margin-top: 20px;
+    border-width: 2px;
+    border-style: outset;
+    background-color: white;
+}

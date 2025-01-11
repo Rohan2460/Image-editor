@@ -163,7 +163,7 @@ function rotateImage(direction) {
         imageAngle = Math.abs(imageAngle) == 360 ? 0 : imageAngle
         canvas.style.transform = `rotate(${imageAngle}deg)`
         console.log(direction, imageAngle)
-        swapWidthHeight()
+        // swapWidthHeight()
         return
     }
 
@@ -188,7 +188,7 @@ function rotateImage(direction) {
     console.log("imageAngle", imageAngle)
     ctx.rotate((imageAngle * Math.PI) / 180)
     ctx.drawImage(image, -width / 2, -height / 2, width, height)
-    swapWidthHeight()
+    // swapWidthHeight()
 }
 
 function applyFilters() {

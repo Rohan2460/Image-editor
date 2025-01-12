@@ -18,10 +18,6 @@
                         <a href="" download="" id="downloadLink" style="display: none"></a>
                     </div>
                     <!-- Uploaded Image Details -->
-                    <div class="ImageInfo">
-                        <span style="display: none">Name: <span id="imgName"></span></span>
-                        <span>Size: <span id="imgSize"></span></span>
-                    </div>
                 </div>
 
                 <hr />
@@ -66,7 +62,7 @@
 
                     <div class="OptionsButtonsDiv">
                         <div>
-                            <input type="checkbox" id="lockAspectRatio" />
+                            <input type="checkbox" id="lockAspectRatio" checked />
                             <label for="lockAspectRatio">Lock Aspect Ratio</label>
                         </div>
                         <div>
@@ -92,9 +88,14 @@
             </div>
 
             <hr />
+            <div class="ImageInfo">
+                <span style="display: none">Name: <span id="imgName"></span></span>
+                <span>Size: <span id="imgSize"></span></span>
+            </div>
+
             <div id="imageContainer" class="imageContainer">
                 <div class="canvasDiv" id="canvasDiv">
-                    <canvas id="canvas" width="800" height="500"> </canvas>
+                    <canvas id="canvas"> </canvas>
                 </div>
             </div>
         </div>

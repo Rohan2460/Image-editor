@@ -1,6 +1,7 @@
 import { jsPDF } from "jspdf"
 
 const canvas = document.querySelector("#canvas")
+const canvasDiv = document.querySelector("#canvasDiv")
 const ctx = canvas.getContext("2d")
 // Inputs
 const imgWidthInput = document.querySelector("#imgWidthInput")
@@ -39,13 +40,10 @@ const imageIsGrayscale = () => {
 let image, imageRatio, imageName
 let imageAngle = 0
 
-// TODO: Rotate not working
 // TODO: Don't scale PNG if not changed
 // pdf img rotation does not work
 // TODO: Move image details to top of canvas
 // TODO: change height and width input to text
-// TODO: Set image output type to input type automatically
-// Auto scale images to 50% if very large
 
 function imageSelector() {
     let fileInput = document.createElement("input")
@@ -71,6 +69,8 @@ function drawImageOnCanvas(imgFile) {
 
     grayscaleBtn.checked = false
     canvas.style.filter = "grayscale(0%)"
+    imageAngle = 0
+    canvasDiv.style.transform = "rotate(0deg)"
 
     // DEBUG !!!!!!!!!!!!!!!!!
     // const img = new Image();
@@ -93,10 +93,6 @@ function drawImageOnCanvas(imgFile) {
         aspectRatioSlider.value = image.width
 
         imageType.value = imgFile.type.split("/")[1]
-
-        // Setting Image container dimensions
-        let containerSize = Math.max(image.width, image.height)
-        // imageContainer.style.height = containerSize + "px"
     })
 }
 
@@ -161,10 +157,10 @@ function rotateImage(direction) {
             imageAngle -= 90
         }
         imageAngle = Math.abs(imageAngle) == 360 ? 0 : imageAngle
-        canvas.style.transform = `rotate(${imageAngle}deg)`
+        canvasDiv.style.transform = `rotate(${imageAngle}deg)`
         console.log(direction, imageAngle)
-        // swapWidthHeight()
         return
+        // swapWidthHeight()
     }
 
     let width = imgWidthInput.value
@@ -211,7 +207,7 @@ function applyFilters() {
 // Image Conversions
 
 function imageToBlob(type) {
-    console.log(parseFloat(qualitySlider.value), imageType.value, type)
+    // console.log(parseFloat(qualitySlider.value), imageType.value, type)
 
     if (type == "pdf") {
         return canvas.toDataURL("image/jpeg", parseFloat(qualitySlider.value))
@@ -279,11 +275,15 @@ imageSelectBtn.addEventListener("click", () => {
 imgWidthInput.addEventListener("change", () => {
     imgHeightInput.value = lockAspectRatio() ? Math.floor(imgWidthInput.value / imageRatio) : imgHeightInput.value
     resizeBtnHandler()
+    aspectRatioSlider.value = imgWidthInput.value // updating slider if user input
+    aspectRatioSlider.dispatchEvent(new Event("input"))
 })
 
 imgHeightInput.addEventListener("change", () => {
     imgWidthInput.value = lockAspectRatio() ? Math.floor(imgHeightInput.value * imageRatio) : imgWidthInput.value
     resizeBtnHandler()
+    aspectRatioSlider.value = imgWidthInput.value
+    aspectRatioSlider.dispatchEvent(new Event("input"))
 })
 
 // INFO: aspectRatioSlider value = original image width
@@ -316,8 +316,8 @@ qualitySlider.addEventListener("input", () => {
 // Image Type
 imageType.addEventListener("change", () => {
     if (imageType.value != "png") {
-        qualitySlider.value = 0.7
-        qualityLabel.innerHTML = "0.7"
+        qualitySlider.value = 0.8
+        qualityLabel.innerHTML = "0.8"
     }
     updateImageInfo()
 })

@@ -87,14 +87,26 @@ input[type="text"] {
 .exportImage {
     display: flex;
     gap: 8px;
+    margin-bottom: 16px;
 }
 
 .imageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+}
+
+.canvasDiv {
     height: fit-content;
     width: fit-content;
     margin: 8px;
-    margin-top: 20px;
-    border-width: 2px;
-    border-style: outset;
+    margin-top: 40px;
+    border-width: 1px;
+    border-style: solid;
     background-color: white;
+}
+
+#canvas {
+    display: block;
 }

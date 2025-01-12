@@ -45,14 +45,14 @@
                     <div class="ScaleSlider">
                         <!-- Scale image / aspect ratio -->
                         <label for="">Size</label>
-                        <input type="range" id="range" min="0" step="1" max="10" value="0" />
+                        <input type="range" id="range" min="0" step="1" max="10" value="10" />
                         <label for="" id="range_txt">100 %</label>
                     </div>
                     <div class="QualitySlider">
                         <!-- Quality slider -->
                         <label for="">Quality</label>
-                        <input type="range" id="quality" min="0.1" step="0.1" max="1" value="1" />
-                        <label for="" id="quality_txt">1</label>
+                        <input type="range" id="quality" min="0.1" step="0.1" max="1" value="0.8" />
+                        <label for="" id="quality_txt">0.8</label>
                     </div>
                 </div>
 
@@ -91,8 +91,11 @@
                 </div>
             </div>
 
+            <hr />
             <div id="imageContainer" class="imageContainer">
-                <canvas id="canvas" width="800" height="500"> </canvas>
+                <div class="canvasDiv" id="canvasDiv">
+                    <canvas id="canvas" width="800" height="500"> </canvas>
+                </div>
             </div>
         </div>
     </body>

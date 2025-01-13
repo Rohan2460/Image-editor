@@ -4,24 +4,25 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-        <script type="module" src="./main.js"></script>
-        <link rel="stylesheet" href="style.css" />
+        <script type="module" src="/main.js"></script>
+        <link rel="stylesheet" href="/style.css" />
     </head>
     <body>
         <div class="container">
-            <!-- Tools div -->
-            <div class="tools-container">
-                <!-- TOP -->
-                <div class="imgSelectDiv">
-                    <div>
-                        <button id="imgSelectBtn">Select Image</button>
-                        <a href="" download="" id="downloadLink" style="display: none"></a>
-                    </div>
-                    <!-- Uploaded Image Details -->
+            <div class="imgSelectDiv">
+                <div>
+                    <p style="margin: 1px; font-weight: 500">Resize & Convert images to PNG JPG PDF WEBP</p>
                 </div>
 
-                <hr />
+                <div>
+                    <button id="imgSelectBtn">Select Image</button>
+                    <a href="" download="" id="downloadLink" style="display: none"></a>
+                </div>
+            </div>
+            <hr />
 
+            <!-- Tools div -->
+            <div class="tools-container">
                 <!-- Resize part | width and height inputs -->
                 <label id="height_label" style="flex-grow: 1">Dimensions (px)</label>
                 <div class="dimensionInfo">
@@ -97,6 +98,15 @@
                 <div class="canvasDiv" id="canvasDiv">
                     <canvas id="canvas"> </canvas>
                 </div>
+            </div>
+        </div>
+
+        <div class="modalDiv" id="modal">
+            <div class="modal">
+                <span>100% Privacy. All processing is done on your device</span>
+                <p>Pick an image to start editing</p>
+                <button id="modalImgSelectBtn">Select Image</button>
+                <!-- <img src="/image.svg" alt="" /> -->
             </div>
         </div>
     </body>

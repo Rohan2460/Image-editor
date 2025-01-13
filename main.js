@@ -30,6 +30,8 @@ const lockAspectRatioBtn = document.querySelector("#lockAspectRatio")
 const rotateLeftBtn = document.querySelector("#btnRotateLeft")
 const rotateRightBtn = document.querySelector("#btnRotateRight")
 
+const modal = document.querySelector("#modal")
+
 const lockAspectRatio = () => {
     return lockAspectRatioBtn.checked
 }
@@ -58,6 +60,7 @@ function imageSelector() {
 
             updateImageInfo(img.name, img.size)
             drawImageOnCanvas(img)
+            modal.style.display = "none"
         }
     })
 }
@@ -123,7 +126,7 @@ function updateImageInfo(name, size) {
             // Image types
             // TODO Currently bw image size is half no real checks
             imageToBlob().then((blob) => {
-                imgSize.innerHTML = imageIsGrayscale() ? toKB(blob.size / 1.5) : toKB(blob.size)
+                imgSize.innerHTML = toKB(blob.size)
             })
         }
     } else {
@@ -236,7 +239,7 @@ function imageToPDF(mode) {
         console.log(pdfSize)
         return pdfSize
     } else {
-        doc.save(imageName)
+        doc.save("resized_" + imageName)
     }
 }
 
@@ -332,3 +335,13 @@ grayscaleBtn.addEventListener("click", () => {
     }
     updateImageInfo()
 })
+
+document.querySelector("#modalImgSelectBtn").addEventListener("click", () => {
+    imageSelector()
+})
+
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none"
+    }
+}

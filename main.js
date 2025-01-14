@@ -162,7 +162,6 @@ function rotateImage(direction) {
         }
         imageAngle = Math.abs(imageAngle) == 360 ? 0 : imageAngle
         canvasDiv.style.transform = `rotate(${imageAngle}deg)`
-        console.log(direction, imageAngle)
         return
         // swapWidthHeight()
     }
@@ -185,7 +184,6 @@ function rotateImage(direction) {
     } else {
         ctx.translate(width / 2, height / 2)
     }
-    console.log("imageAngle", imageAngle)
     ctx.rotate((imageAngle * Math.PI) / 180)
     ctx.drawImage(image, -width / 2, -height / 2, width, height)
 }
@@ -228,7 +226,6 @@ function imageToPDF(mode) {
     } else {
         orientation = imgOrientation
     }
-    console.log(orientation)
 
     let width = imgWidthInput.value
     let height = imgHeightInput.value
@@ -245,7 +242,6 @@ function imageToPDF(mode) {
 
     if (mode == "info") {
         let pdfSize = doc.output("blob").size
-        console.log(pdfSize)
         return pdfSize
     } else {
         doc.save("resized_" + imageName)
@@ -264,13 +260,11 @@ function exportImage() {
     rotateImage()
     applyFilters()
 
-    console.log("export Image", imageName)
     imageToBlob().then((blob) => {
         let url = URL.createObjectURL(blob)
         downloadLink.setAttribute("download", "resized_" + imageName + "." + imageType.value)
         downloadLink.setAttribute("href", url)
         downloadLink.setAttribute("type", "image/" + imageType.value)
-        console.log(url)
         downloadLink.click()
     })
     resizeBtnHandler() // Hack for some unknown rotation issue
@@ -340,7 +334,6 @@ imageType.addEventListener("change", () => {
 
 // Grayscale
 grayscaleBtn.addEventListener("click", () => {
-    console.log("BW ", imageIsGrayscale())
     if (imageIsGrayscale()) {
         canvas.style.filter = "grayscale(100%)"
     } else {

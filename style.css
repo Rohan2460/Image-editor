@@ -44,6 +44,10 @@ input[type="range"] {
     padding-right: 0px;
 }
 
+.topDiv {
+    background-color: #bdbdbd;
+}
+
 .ImageInfo {
     display: flex;
     gap: 16px;
@@ -58,16 +62,22 @@ input[type="range"] {
     font-weight: bold;
 }
 
+.tools-container {
+    padding-left: 10px;
+}
+
 .imgSelectDiv {
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
     gap: 16px;
     align-items: center;
+    padding-left: 10px;
 }
 
 #imgSelectBtn {
     min-width: 105px;
+    margin-right: 10px;
 }
 
 .dimensionInfo {
@@ -127,10 +137,11 @@ input[type="range"] {
     height: fit-content;
     width: fit-content;
     margin: 8px;
-    margin-top: 40px;
+    margin-top: 50px;
     border-width: 1px;
     border-style: solid;
     background-color: white;
+    z-index: -1;
 }
 
 #canvas {

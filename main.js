@@ -18,7 +18,6 @@ const imageSelectBtn = document.querySelector("#imgSelectBtn")
 
 const imageType = document.querySelector("#imageType")
 const downloadLink = document.querySelector("#downloadLink")
-const imageContainer = document.querySelector("#imageContainer")
 
 const widthLabel = document.querySelector("#width_label")
 const heightLabel = document.querySelector("#height_label")
@@ -29,6 +28,9 @@ const lockAspectRatioBtn = document.querySelector("#lockAspectRatio")
 
 const rotateLeftBtn = document.querySelector("#btnRotateLeft")
 const rotateRightBtn = document.querySelector("#btnRotateRight")
+
+const imgName = document.querySelector("#imgName")
+const imgSize = document.querySelector("#imgSize")
 
 const modal = document.querySelector("#modal")
 
@@ -41,6 +43,7 @@ const imageIsGrayscale = () => {
 
 let image, imageRatio, imageName
 let imageAngle = 0
+let imgOrientation
 
 // TODO: Don't scale PNG if not changed
 // pdf img rotation does not work
@@ -56,7 +59,7 @@ function imageSelector() {
     fileInput.addEventListener("change", () => {
         if (fileInput.files.length > 0) {
             const img = fileInput.files[0]
-            imageName = img.name
+            imageName = img.name.split(".")[0]
 
             updateImageInfo(img.name, img.size)
             drawImageOnCanvas(img)
@@ -83,6 +86,7 @@ function drawImageOnCanvas(imgFile) {
         // Set input field values, Image needs to load to get values
         image = img
         imageRatio = img.width / img.height
+        imgOrientation = image.width > image.height ? "landscape" : "portrait"
         imgWidthInput.value = img.width
         imgHeightInput.value = img.height
 
@@ -111,9 +115,6 @@ function resizeBtnHandler() {
 }
 
 function updateImageInfo(name, size) {
-    const imgName = document.querySelector("#imgName")
-    const imgSize = document.querySelector("#imgSize")
-
     imgWidthInput.value = canvas.width
     imgHeightInput.value = canvas.height
 
@@ -187,7 +188,6 @@ function rotateImage(direction) {
     console.log("imageAngle", imageAngle)
     ctx.rotate((imageAngle * Math.PI) / 180)
     ctx.drawImage(image, -width / 2, -height / 2, width, height)
-    // swapWidthHeight()
 }
 
 function applyFilters() {
@@ -210,8 +210,6 @@ function applyFilters() {
 // Image Conversions
 
 function imageToBlob(type) {
-    // console.log(parseFloat(qualitySlider.value), imageType.value, type)
-
     if (type == "pdf") {
         return canvas.toDataURL("image/jpeg", parseFloat(qualitySlider.value))
     }
@@ -223,16 +221,27 @@ function imageToBlob(type) {
 }
 
 function imageToPDF(mode) {
-    let img_orientation = image.width > image.height ? "landscape" : "portrait"
-    // if (imageAngle == 90 || imageAngle == 270) img_orientation = "landscape";
-    console.log(img_orientation)
+    let orientation = ""
+    if (imageAngle == 90 || imageAngle == 270) {
+        if (imgOrientation == "landscape") orientation = "portrait"
+        else orientation = "landscape"
+    } else {
+        orientation = imgOrientation
+    }
+    console.log(orientation)
 
+    let width = imgWidthInput.value
+    let height = imgHeightInput.value
+    if (imageAngle == 90 || imageAngle == 270) {
+        width = imgHeightInput.value
+        height = imgWidthInput.value
+    }
     const doc = new jsPDF({
-        orientation: img_orientation,
+        orientation: orientation,
         unit: "px",
-        format: [imgWidthInput.value, imgHeightInput.value],
+        format: [width, height],
     })
-    doc.addImage(imageToBlob("pdf"), "JPEG", 0, 0, imgWidthInput.value, imgHeightInput.value)
+    doc.addImage(imageToBlob("pdf"), "JPEG", 0, 0, width, height)
 
     if (mode == "info") {
         let pdfSize = doc.output("blob").size
@@ -245,18 +254,22 @@ function imageToPDF(mode) {
 
 function exportImage() {
     if (imageType.value == "pdf") {
+        rotateImage()
         applyFilters()
         imageToPDF()
+        resizeBtnHandler() // Hack for some unknown rotation issue
+
         return
     }
     rotateImage()
     applyFilters()
 
-    console.log("exportImage")
+    console.log("export Image", imageName)
     imageToBlob().then((blob) => {
         let url = URL.createObjectURL(blob)
-        downloadLink.setAttribute("download", "resized_" + imageName)
+        downloadLink.setAttribute("download", "resized_" + imageName + "." + imageType.value)
         downloadLink.setAttribute("href", url)
+        downloadLink.setAttribute("type", "image/" + imageType.value)
         console.log(url)
         downloadLink.click()
     })

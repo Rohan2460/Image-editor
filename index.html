@@ -3,95 +3,85 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-        <script type="module" src="/main.js"></script>
+        <meta
+            name="description"
+            content="Image resize online. Export images to PDF, PNG, JPG, WEBP. Compress images easily. Image to PDF" />
+        <meta
+            name="keywords"
+            content="resize images, photo resizer, resize photo, reduce images, reduce images online, reduce an image,image, photo, resize, compress, pdf, image to pdf" />
+        <title>Photo Resize | Resize and convert to PDF PNG JPG</title>
+        <link rel="icon" type="image/png" href="/logo.png" />
+
         <link rel="stylesheet" href="/style.css" />
+        <script type="module" src="/main.js"></script>
+        Loc ???????????????????
     </head>
     <body>
         <div class="container">
-            <div class="imgSelectDiv">
-                <div>
-                    <p style="margin: 1px; font-weight: 500">Resize & Convert images to PNG JPG PDF WEBP</p>
-                </div>
-
-                <div>
-                    <button id="imgSelectBtn">Select Image</button>
-                    <a href="" download="" id="downloadLink" style="display: none"></a>
-                </div>
-            </div>
-            <hr />
-
-            <!-- Tools div -->
-            <div class="tools-container">
-                <!-- Resize part | width and height inputs -->
-                <label id="height_label" style="flex-grow: 1">Dimensions (px)</label>
-                <div class="dimensionInfo">
-                    <div class="dimensionInput1">
-                        <input placeholder="Height" type="text" id="imgHeightInput" />
+            <div class="topDiv">
+                <div class="imgSelectDiv">
+                    <div>
+                        <p style="margin: 1px; font-weight: 500">Resize & Convert images to PNG JPG PDF WEBP</p>
                     </div>
-                    <span>X</span>
-                    <div class="dimensionInput2">
+                    <div>
+                        <button id="imgSelectBtn">Select Image</button>
+                        <a href="" download="" id="downloadLink" style="display: none"></a>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="tools-container">
+                    <label id="height_label" style="flex-grow: 1">Dimensions (px)</label>
+                    <div class="dimensionInfo">
+                        <input placeholder="Height" type="text" id="imgHeightInput" />
+                        <span>X</span>
                         <input placeholder="Width" type="text" id="imgWidthInput" />
                     </div>
-                    <!-- Maybe remove this button -->
-                    <!-- <button onclick="resizeBtnHandler()">Resize</button> -->
-                </div>
 
-                <!-- Sliders -->
-                <div class="Sliders">
-                    <div class="ScaleSlider">
-                        <!-- Scale image / aspect ratio -->
-                        <label for="">Size</label>
-                        <input type="range" id="range" min="0" step="1" max="10" value="10" />
-                        <label for="" id="range_txt">100 %</label>
-                    </div>
-                    <div class="QualitySlider">
-                        <!-- Quality slider -->
-                        <label for="">Quality</label>
-                        <input type="range" id="quality" min="0.1" step="0.1" max="1" value="0.8" />
-                        <label for="" id="quality_txt">0.8</label>
-                    </div>
-                </div>
-
-                <!-- Lock aspect ratio | Grayscale -->
-                <div class="OptionsDiv">
-                    <!-- Rotation -->
-                    <div class="RotateButtonsDiv">
-                        <button id="btnRotateLeft">Rotate Left</button>
-                        <button id="btnRotateRight">Rotate Right</button>
-                    </div>
-
-                    <div class="OptionsButtonsDiv">
-                        <div>
-                            <input type="checkbox" id="lockAspectRatio" checked />
-                            <label for="lockAspectRatio">Lock Aspect Ratio</label>
+                    <div class="Sliders">
+                        <div class="ScaleSlider">
+                            <label for="range">Size</label>
+                            <input type="range" id="range" min="0" step="1" max="10" value="10" />
+                            <label for="" id="range_txt">100 %</label>
                         </div>
-                        <div>
-                            <input type="checkbox" id="grayscale" />
-                            <label for="grayscale">Black and White</label>
+                        <div class="QualitySlider">
+                            <label for="quality">Quality</label>
+                            <input type="range" id="quality" min="0.1" step="0.1" max="1" value="0.8" />
+                            <label for="" id="quality_txt">0.8</label>
                         </div>
                     </div>
+
+                    <div class="OptionsDiv">
+                        <div class="RotateButtonsDiv">
+                            <button id="btnRotateLeft">Rotate Left</button>
+                            <button id="btnRotateRight">Rotate Right</button>
+                        </div>
+                        <div class="OptionsButtonsDiv">
+                            <div>
+                                <input type="checkbox" id="lockAspectRatio" checked />
+                                <label for="lockAspectRatio">Lock Aspect Ratio</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="grayscale" />
+                                <label for="grayscale">Black and White</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exportImage">
+                        <select id="imageType" aria-label="image export type">
+                            <option value="png">PNG</option>
+                            <option value="jpeg">JPG / JPEG</option>
+                            <option value="webp">WEBP</option>
+                            <option value="pdf">PDF</option>
+                        </select>
+                        <button id="downloadBtn">Download Image</button>
+                    </div>
                 </div>
-
-                <!-- Handle no image selected error -->
-
-                <div class="exportImage">
-                    <!-- TODO make this buttons -->
-                    <select name="" id="imageType">
-                        <option value="png">PNG</option>
-                        <option value="jpeg">JPG / JPEG</option>
-                        <option value="webp">WEBP</option>
-                        <option value="pdf">PDF</option>
-                    </select>
-
-                    <button id="downloadBtn">Download Image</button>
+                <hr />
+                <div class="ImageInfo">
+                    <span style="display: none">Name: <span id="imgName"></span></span>
+                    <span>Size: <span id="imgSize"></span></span>
                 </div>
-            </div>
-
-            <hr />
-            <div class="ImageInfo">
-                <span style="display: none">Name: <span id="imgName"></span></span>
-                <span>Size: <span id="imgSize"></span></span>
             </div>
 
             <div id="imageContainer" class="imageContainer">
@@ -106,7 +96,6 @@
                 <span>100% Privacy. All processing is done on your device</span>
                 <p>Pick an image to start editing</p>
                 <button id="modalImgSelectBtn">Select Image</button>
-                <!-- <img src="/image.svg" alt="" /> -->
             </div>
         </div>
     </body>
